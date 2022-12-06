@@ -1,0 +1,14 @@
+{
+  "extends": "@tsconfig/node12/",
+  "compilerOptions": {
+    "outDir": "./dist" /* Redirect output structure to the directory. */,
+    "declaration": false /* Generates corresponding d.ts file*/,
+    "experimentalDecorators": true,
+    "sourceMap": false,
+    "baseUrl": "src",
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "exclude": ["node_modules", "**/*.test.ts", "**/*.ignore.ts", "**/*.spec.ts"]
+}
