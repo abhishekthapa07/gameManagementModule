@@ -1,5 +1,5 @@
 import session from "express-session";
-// import flash from "connect-flash";
+import flash from "connect-flash";
 const MongoStore = require("connect-mongo")(session);
 import { Application } from "express";
 const mongoose = require("mongoose"); //intentionally required
@@ -17,7 +17,7 @@ export default function (app: Application, secret: string): void {
     },
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
-    })
+    }),
   };
   /// Only Production options
   if (app.get("env") === "production") {
@@ -28,5 +28,5 @@ export default function (app: Application, secret: string): void {
   }
   /// add to app
   app.use(session(options));
-  // app.use(flash());
+  app.use(flash());
 }
