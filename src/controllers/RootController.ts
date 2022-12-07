@@ -44,5 +44,14 @@ export class RootController {
       res.locals.errorMessage = `${error}`;
     }
   }
-  
+  @Get("/generateLink/:id")
+  async getGenerateLink(req: Request, res: Response, next: NextFunction) {
+    const id = req.params.id;
+    const gameToUpdate = await Module.findById(id);
+    if (!gameToUpdate) {
+      res.locals.errorMessage = "Game not found";
+      return res.redirect(req.originalUrl);
+    }
+    res.render("root/generateLink", { game: gameToUpdate });
+  }
 }
