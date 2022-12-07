@@ -58,7 +58,8 @@ export class RootController {
         req.flash("error", `Game not found with id ${gameId}`);
         return res.redirect("/");
       }
-      res.render("root/generateLink", { game: gameToUpdate });
+      const gamesList = await Module.find({});
+      res.render("root/generateLink", { game: gameToUpdate, gameList: gamesList });
     } catch (error) {
       req.flash("error", `${error}`);
       return res.redirect("/");
@@ -68,7 +69,8 @@ export class RootController {
   @Post("/generateLink/:id")
   async linkGenerator(req: Request, res: Response, next: NextFunction) {
     try {
-      const gameId = req.params.id;
+      let gameId;
+      req.params.id == "dropdown_list" ? (gameId = req.body.game) : (gameId = req.params.id);
       const gameToUpdate = await Module.findById(gameId);
       if (!gameToUpdate) {
         req.flash("error", `Game not found with id ${gameId}`);
@@ -79,7 +81,7 @@ export class RootController {
       gameToUpdate.link = link;
       await gameToUpdate.save({ validateBeforeSave: true, validateModifiedOnly: true });
       req.flash("success", `Link generated successfully`);
-      return res.redirect(req.originalUrl);
+      res.redirect(`/generateLink/${gameId}`);
     } catch (error) {
       req.flash("error", `${error}`);
       return res.redirect(req.originalUrl);
