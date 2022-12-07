@@ -54,4 +54,21 @@ export class RootController {
     }
     res.render("root/generateLink", { game: gameToUpdate });
   }
+  @Post("/generateLink/:id")
+  async linkGenerator(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id;
+      const gameToUpdate = await Module.findById(id);
+      if (!gameToUpdate) {
+        res.locals.errorMessage = "Game not found";
+        return res.redirect(req.originalUrl);
+      }
+      const { mode, level, players } = req.body;
+      const link = `www.site.com?game_id=${id}&mode=${mode}&level=${level}&players=${players}`;
+      gameToUpdate.link = link;
+      await gameToUpdate.save({ validateBeforeSave: true, validateModifiedOnly: true });
+    } catch (error) {
+      res.locals.errorMessage = `${error}`;
+    }
+  }
 }
