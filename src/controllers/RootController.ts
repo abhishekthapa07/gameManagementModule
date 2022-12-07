@@ -11,4 +11,19 @@ export class RootController {
     const gamesList = await Module.find({});
     res.render("root/home", { AllGames: gamesList });
   }
+  @Get("/updateGame/:id")
+  async getGame(req: Request, res: Response, next: NextFunction) {
+    try {
+      const id = req.params.id;
+      const gameToUpdate = await Module.findById(id);
+      if (!gameToUpdate) {
+        res.locals.errorMessage = "Game not found";
+      }
+      res.render("root/updateGame", { game: gameToUpdate });
+    } catch (error) {
+      res.locals.errorMessage = `${error}`;
+    }
+  }
+
+  
 }
