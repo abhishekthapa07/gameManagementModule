@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { Controller, Get, IRouteParams, Post } from "@softcripto/express";
+import { Controller, Get, IRouteParams, Post, Put } from "@softcripto/express";
+import { Module } from "../models";
 
 @Controller("/")
 export class RootController {
@@ -7,6 +8,7 @@ export class RootController {
   /// Home page
   @Get("/")
   async index(req: Request, res: Response, next: NextFunction) {
-    res.render("root/home");
+    const gamesList = await Module.find({});
+    res.render("root/home", { AllGames: gamesList });
   }
 }
