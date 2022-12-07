@@ -20,7 +20,8 @@ export class RootController {
         req.flash("error", `Game not found with id ${gameId}`);
         return res.redirect("/");
       }
-      res.render("root/updateGame", { game: gameToUpdate });
+      const gamesList = await Module.find({});
+      res.render("root/updateGame", { game: gameToUpdate, gameList: gamesList });
     } catch (error) {
       req.flash("error", `${error}`);
       return res.redirect("/");
@@ -30,7 +31,8 @@ export class RootController {
   @Post("/updateGame/:id")
   async updateCategory(req: Request, res: Response, next: NextFunction) {
     try {
-      const gameId = req.params.id;
+      let gameId;
+      req.params.id == "dropdown_list" ? (gameId = req.body.game) : (gameId = req.params.id);
       const gameToUpdate = await Module.findById(gameId);
       if (!gameToUpdate) {
         req.flash("error", `Game not found with id ${gameId}`);
@@ -40,7 +42,7 @@ export class RootController {
         runValidators: true,
       });
       req.flash("success", `Game category updated successfully`);
-      return res.redirect(req.originalUrl);
+      res.redirect(`/updateGame/${gameId}`);
     } catch (error) {
       req.flash("error", `${error}`);
       return res.redirect(req.originalUrl);
