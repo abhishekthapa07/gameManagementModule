@@ -13,7 +13,8 @@
     "docs": "typedoc --options typedoc.json",
     "build": "npm run prestart && tsc --build",
     "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix"
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "dbInsert": "DEBUG=* ts-node src/lib/dbInsert.ts"
   },
   "keywords": [],
   "author": "",
