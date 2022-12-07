@@ -14,15 +14,16 @@ export class RootController {
   @Get("/updateGame/:id")
   async getGame(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = req.params.id;
-      const gameToUpdate = await Module.findById(id);
+      const gameId = req.params.id;
+      const gameToUpdate = await Module.findById(gameId);
       if (!gameToUpdate) {
-        res.locals.errorMessage = "Game not found";
+        req.flash("error", `Game not found with id ${gameId}`);
+        return res.redirect("/");
       }
       res.render("root/updateGame", { game: gameToUpdate });
     } catch (error) {
-      res.locals.errorMessage = `${error}`;
-      return res.redirect(req.originalUrl);
+      req.flash("error", `${error}`);
+      return res.redirect("/");
     }
   }
 
@@ -32,43 +33,54 @@ export class RootController {
       const gameId = req.params.id;
       const gameToUpdate = await Module.findById(gameId);
       if (!gameToUpdate) {
-        res.locals.errorMessage = "Game not found";
+        req.flash("error", `Game not found with id ${gameId}`);
         return res.redirect(req.originalUrl);
       }
       await Module.updateOne({ _id: gameId }, req.body, {
         runValidators: true,
       });
-      res.redirect(req.originalUrl);
-      res.locals.successMessage = "Category updated successfully";
+      req.flash("success", `Game category updated successfully`);
+      return res.redirect(req.originalUrl);
     } catch (error) {
-      res.locals.errorMessage = `${error}`;
-    }
-  }
-  @Get("/generateLink/:id")
-  async getGenerateLink(req: Request, res: Response, next: NextFunction) {
-    const id = req.params.id;
-    const gameToUpdate = await Module.findById(id);
-    if (!gameToUpdate) {
-      res.locals.errorMessage = "Game not found";
+      req.flash("error", `${error}`);
       return res.redirect(req.originalUrl);
     }
-    res.render("root/generateLink", { game: gameToUpdate });
   }
+
+  @Get("/generateLink/:id")
+  async getGenerateLink(req: Request, res: Response, next: NextFunction) {
+    try {
+      const gameId = req.params.id;
+      const gameToUpdate = await Module.findById(gameId);
+      if (!gameToUpdate) {
+        req.flash("error", `Game not found with id ${gameId}`);
+        return res.redirect("/");
+      }
+      res.render("root/generateLink", { game: gameToUpdate });
+    } catch (error) {
+      req.flash("error", `${error}`);
+      return res.redirect("/");
+    }
+  }
+
   @Post("/generateLink/:id")
   async linkGenerator(req: Request, res: Response, next: NextFunction) {
     try {
-      const id = req.params.id;
-      const gameToUpdate = await Module.findById(id);
+      const gameId = req.params.id;
+      const gameToUpdate = await Module.findById(gameId);
       if (!gameToUpdate) {
-        res.locals.errorMessage = "Game not found";
+        req.flash("error", `Game not found with id ${gameId}`);
         return res.redirect(req.originalUrl);
       }
       const { mode, level, players } = req.body;
-      const link = `www.site.com?game_id=${id}&mode=${mode}&level=${level}&players=${players}`;
+      const link = `www.site.com?game_id=${gameId}&mode=${mode}&level=${level}&players=${players}`;
       gameToUpdate.link = link;
       await gameToUpdate.save({ validateBeforeSave: true, validateModifiedOnly: true });
+      req.flash("success", `Link generated successfully`);
+      return res.redirect(req.originalUrl);
     } catch (error) {
-      res.locals.errorMessage = `${error}`;
+      req.flash("error", `${error}`);
+      return res.redirect(req.originalUrl);
     }
   }
 }
