@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Controller, Get, IRouteParams, Post, Put } from "@softcripto/express";
 import { Module } from "../models";
+import linkGenerator from "../helper/linkGenerator";
 
 @Controller("/")
 export class RootController {
@@ -70,15 +71,14 @@ export class RootController {
   async linkGenerator(req: Request, res: Response, next: NextFunction) {
     try {
       let gameId;
-      req.params.id == "dropdown_list" ? (gameId = req.body.game) : (gameId = req.params.id);
+      req.params.id == "dropdown_list" ? (gameId = req.body.game_id) : (gameId = req.params.id);
       const gameToUpdate = await Module.findById(gameId);
       if (!gameToUpdate) {
         req.flash("error", `Game not found with id ${gameId}`);
         return res.redirect(req.originalUrl);
       }
-      const { mode, level, players } = req.body;
-      const link = `www.site.com?game_id=${gameId}&mode=${mode}&level=${level}&players=${players}`;
-      gameToUpdate.link = link;
+      const link = linkGenerator(req.body, gameId);
+      gameToUpdate.link = link 
       await gameToUpdate.save({ validateBeforeSave: true, validateModifiedOnly: true });
       req.flash("success", `Link generated successfully`);
       res.redirect(`/generateLink/${gameId}`);
