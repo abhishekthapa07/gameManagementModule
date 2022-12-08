@@ -37,7 +37,7 @@ A Module to manage games,generate link and update category for games
 
 
 ## How to use frontend
-1. You will list of games in root page
+1. You will see list of games in root page
 1. Games with have its details and 2 button to update category and generate link
 1. Onclick update category button you will be redirected to new page which has two option
    - first change category of selected game 
