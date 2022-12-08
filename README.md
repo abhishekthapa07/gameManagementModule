@@ -1,26 +1,38 @@
-# Web Boilerplate
+# Game Management Module
 
-A boilerplate for backend application using ExpressJs. This boilerplate has setup following tools:
+A Module to manage games,generate link and update category for games
 
 1. TypeScript
-1. Expressjs
-1. Mongodb (Mongoosejs)
+1. ExpressJs
+1. Mongodb (MongooseJs)
 1. HBS Template Engine
 1. **@softcripto/express** pre-configured expressJs and TypeScript Generators.
 
-# Server and development tools installation requirements
+## System requirements
 
-1. NodeJs 12.x.x
-1. MongoDB shell version v4.4.0
+1. Node version >= v12.18.4
+1. MongoDB shell version >= v4.4.0
+1. express version >= 4.16.1
 
-# Creating new project from the boilerplate
+## How to setup project in your local system
 
-1. Clone the repository `git clone git@bitbucket.org:drivioinc/boilerplate-api.git <PROJECT NAME>`
+1. Clone the repository using SSH `git clone git@github.com:abhishekthapa07/gameManagementModule.git`
+1. Clone the repository using HTTPS `git clone https://github.com/abhishekthapa07/gameManagementModule.git`
 1. CD to recently cloned project. `cd <PROJECT NAME>`
-1. Unlink remote origin and git `rm -rf .git`.
-1. Init git `git init`
-1. Add remote origin `git remote add origin <REPO URL>`
-1. Start development!!!
+1. Duplicate example.env file and rename it to .env by removing example
+1. Open the newly created .env file and fill in proper values
+   - port numbers should be between `3100 - 4000`
+   - NODE_ENV value should either be `develop | production`
+   - Database name must be provided
+   - SESSION_SECRET can be of any value
+1. Run the command `npm start` in your terminal which will install all required page and do a system run
+1. Goto browser and run http://localhost:{port}
+
+### Note:
+
+1. value in .env files should be provided without space
+1. If project is already installed in your local system and get errors then kindly delete node_modules and package-lock.json file and reinstall npm packages using cmd `npm install`
+1. If projects run successfully the you will see `Running on port 3030 http://localhost:port` in terminal
 
 # Other README files are
 
