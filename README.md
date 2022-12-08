@@ -25,7 +25,7 @@ A Module to manage games,generate link and update category for games
    - NODE_ENV value should either be `develop | production`
    - Database name must be provided
    - SESSION_SECRET can be of any value
-1. Run the command `npm start` in your terminal which will install all required page and do a system run
+1. Run the command `npm start` in your terminal which will install all required package and do a system run
 1. Run the command `npm run dbInsert` in your terminal to insert data in your database
 1. Goto browser and run http://localhost:{port}
 
