@@ -26,7 +26,7 @@ A Module to manage games,generate link and update category for games
    - Database name must be provided
    - SESSION_SECRET can be of any value
 1. Run the command `npm start` in your terminal which will install all required package and do a system run
-1. Run the command `npm run dbInsert` in your terminal to insert data in your database
+1. Open another terminal and run the command `npm run dbInsert`to insert data in your database
 1. Goto browser and run http://localhost:{port}
 
 ### Note:
@@ -34,6 +34,17 @@ A Module to manage games,generate link and update category for games
 1. value in .env files should be provided without space
 1. If project is already installed in your local system and get errors then kindly delete node_modules and package-lock.json file and reinstall npm packages using cmd `npm install`
 1. If projects run successfully the you will see `Running on port 3030 http://localhost:port` in terminal
+
+
+## How to use frontend
+1. You will list of games in root page
+1. Games with have its details and 2 button to update category and generate link
+1. Onclick update category button you will be redirected to new page which has two option
+   - first change category of selected game 
+   - second select game from dropdown list and change category
+1. Onclick generate link button you will be redirected to new page which has two option
+   - first generate link of selected game 
+   - second select game from dropdown list and generate link
 
 # Other README files are
 
