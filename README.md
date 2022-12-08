@@ -45,6 +45,7 @@ A Module to manage games,generate link and update category for games
 1. Onclick generate link button you will be redirected to new page which has two option
    - first generate link of selected game 
    - second select game from dropdown list and generate link
+1. You can use spaces in field which will be replaced with (+) while generating link
 
 # Other README files are
 
