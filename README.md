@@ -5,6 +5,7 @@ A boilerplate for backend application using ExpressJs. This boilerplate has setu
 1. TypeScript
 1. Expressjs
 1. Mongodb (Mongoosejs)
+1. HBS Template Engine
 1. **@softcripto/express** pre-configured expressJs and TypeScript Generators.
 
 # Server and development tools installation requirements
